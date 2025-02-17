@@ -11,4 +11,15 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  {
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['warn', {
+        'vars': 'all',
+        'args': 'after-used',
+        'ignoreRestSiblings': true,
+        'argsIgnorePattern': '^_',
+        'varsIgnorePattern': '^_'
+      }]
+    }
+  }
 ];
