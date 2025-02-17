@@ -1,6 +1,8 @@
 import React, { memo, FC, useState } from 'react'
+import { useTitle } from 'ahooks'
 import QuestionCard from '../../components/QuestionCard.tsx'
 import styles from './List.module.scss'
+import { useSearchParams } from 'react-router-dom'
 
 const rawQuestionList = [
     {
@@ -38,6 +40,10 @@ const rawQuestionList = [
   ]
 
 const List: FC = memo(function List() {
+  useTitle('问卷-我的问卷')
+  const [searchParams] = useSearchParams()
+  console.log('keyword',searchParams.get('keyword'));
+  
     const [questionList, setQuestionList] = useState(rawQuestionList);
     return (
         <>
