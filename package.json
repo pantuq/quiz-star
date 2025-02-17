@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "ahooks": "^3.8.4",
+    "antd": "^5.24.1",
     "classnames": "^2.5.1",
     "commitlint": "^19.7.1",
     "conventional-changelog-conventionalcommits": "^8.0.0",

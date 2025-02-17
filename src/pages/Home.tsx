@@ -1,3 +1,4 @@
+import { Button } from 'antd'
 import React, { memo, FC } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -14,7 +15,8 @@ const Home: FC = memo(function Home() {
         <>
             Home
             <div>
-                <button onClick={clickHandler}>登录</button>
+                <Button onClick={clickHandler}>登录</Button>
+                &nbsp;
                 <Link to={'/register?a=20'}>注册</Link>
             </div>
         </>
