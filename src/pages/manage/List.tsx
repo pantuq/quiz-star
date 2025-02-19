@@ -1,7 +1,7 @@
 import React, { memo, FC, useState } from 'react'
 import { useTitle } from 'ahooks'
 import QuestionCard from '../../components/QuestionCard.tsx'
-import styles from './List.module.scss'
+import styles from './Common.module.scss'
 import { useSearchParams } from 'react-router-dom'
 
 const rawQuestionList = [
@@ -46,26 +46,23 @@ const List: FC = memo(function List() {
   
     const [questionList, setQuestionList] = useState(rawQuestionList);
     return (
-        <>
+      <>
         <div className={styles.header}>
-            <div className={styles.left}>
-                <h3>我的问卷</h3>
-            </div>
-            <div className={styles.right}>
-                搜索
-            </div>
+          <div className={styles.left}>
+            <h3>我的问卷</h3>
+          </div>
+          <div className={styles.right}>搜索</div>
         </div>
         <div className={styles.content}>
-            {questionList.map(ques => {
-                const {_id} = ques
-                return <QuestionCard key={_id} {...ques}/>
+          {questionList.length &&
+            questionList.map((ques) => {
+              const { _id } = ques;
+              return <QuestionCard key={_id} {...ques} />;
             })}
         </div>
-        <div className={styles.footer}>
-            底部
-        </div>
-        </>
-    )
+        <div className={styles.footer}>上划加载更多</div>
+      </>
+    );
 })
 
 
