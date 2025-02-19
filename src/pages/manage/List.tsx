@@ -3,6 +3,7 @@ import { useTitle } from 'ahooks'
 import QuestionCard from '../../components/QuestionCard.tsx'
 import styles from './Common.module.scss'
 import { useSearchParams } from 'react-router-dom'
+import { Typography } from 'antd'
 
 const rawQuestionList = [
     {
@@ -41,6 +42,9 @@ const rawQuestionList = [
 
 const List: FC = memo(function List() {
   useTitle('问卷-我的问卷')
+
+  const {Title} = Typography
+
   const [searchParams] = useSearchParams()
   console.log('keyword',searchParams.get('keyword'));
   
@@ -49,7 +53,7 @@ const List: FC = memo(function List() {
       <>
         <div className={styles.header}>
           <div className={styles.left}>
-            <h3>我的问卷</h3>
+            <Title level={3}>我的问卷</Title>
           </div>
           <div className={styles.right}>搜索</div>
         </div>
