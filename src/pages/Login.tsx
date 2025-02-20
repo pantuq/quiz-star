@@ -66,10 +66,26 @@ const Login: FC = memo(function Login() {
             onFinish={onFinish}
             form={form}
           >
-            <Form.Item label="用户名" name="username">
+            <Form.Item
+              label="用户名"
+              name="username"
+              rules={[
+                { required: true, message: "请输入用户名" },
+                { type: "string", message: "用户名只能是字符串" },
+                { min: 3, max: 20, message: "用户名长度不能小于3,大于20" },
+                {
+                  pattern: /^[a-zA-Z0-9_]+$/,
+                  message: "用户名只能是字母、数字、下划线",
+                },
+              ]}
+            >
               <Input />
             </Form.Item>
-            <Form.Item label="密码" name="password">
+            <Form.Item
+              label="密码"
+              name="password"
+              rules={[{ required: true, message: "请输入密码" }]}
+            >
               <Input.Password />
             </Form.Item>
             <Form.Item
