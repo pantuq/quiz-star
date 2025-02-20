@@ -4,6 +4,7 @@ import QuestionCard from '../../components/QuestionCard.tsx'
 import styles from './Common.module.scss'
 import { useSearchParams } from 'react-router-dom'
 import { Typography } from 'antd'
+import ListSearch from '../../components/ListSearch.tsx'
 
 const rawQuestionList = [
     {
@@ -55,7 +56,9 @@ const List: FC = memo(function List() {
           <div className={styles.left}>
             <Title level={3}>我的问卷</Title>
           </div>
-          <div className={styles.right}>搜索</div>
+          <div className={styles.right}>
+            <ListSearch/>
+          </div>
         </div>
         <div className={styles.content}>
           {questionList.length &&

@@ -3,6 +3,7 @@ import { Empty, Typography } from 'antd'
 import React, { memo, FC, useState } from 'react'
 import styles from './Common.module.scss'
 import QuestionCard from '../../components/QuestionCard.tsx'
+import ListSearch from '../../components/ListSearch.tsx'
 
 const rawQuestionList = [
     {
@@ -44,7 +45,9 @@ const Star: FC = memo(function Star() {
           <div className={styles.left}>
             <Title level={3}>星标问卷</Title>
           </div>
-          <div className={styles.right}>搜索</div>
+          <div className={styles.right}>
+            <ListSearch/>
+          </div>
         </div>
         <div className={styles.content}>
             {questionList.length === 0 && <Empty description="暂无星标问卷" />}
