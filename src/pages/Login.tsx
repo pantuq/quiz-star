@@ -5,6 +5,12 @@ import { Button, Checkbox, Form, Input, Space, Typography } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 import { REGISTER_PATHNAME } from '../router/index.tsx'
 
+interface LoginFormValues {
+  username: string;
+  password: string;
+  remember: boolean;
+}
+
 const USERNAME_KEY = "USERNAME"
 const PASSWORD_KEY = "PASSWORD"
 
@@ -37,7 +43,7 @@ const Login: FC = memo(function Login() {
     },[])
     // 没有写依赖项，只在函数组件开始渲染的时候执行一次
 
-    const onFinish = (value: object) => {
+    const onFinish = (value: LoginFormValues) => {
         console.log(value);
         const { username, password, remember } = value;
         if(remember){
