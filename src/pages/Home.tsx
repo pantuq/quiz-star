@@ -1,12 +1,23 @@
 import { Button, Typography } from 'antd'
-import React, { memo, FC } from 'react'
+import React, { memo, FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MANAGE_INDEX_PATHNAME } from '../router/index.tsx'
 import styles from './Home.module.scss'
+import '../_mock/index.tsx'
+import axios from 'axios'
 
 const Home: FC = memo(function Home() {
     const { Title, Paragraph } = Typography
     const nav = useNavigate()
+
+    useEffect(() => {
+        // fetch('/api/test').then(res => res.json()).then(data => console.log('fetch data',data))
+
+        // mock.js 只能劫持XMLHttpRequest,不能劫持fetch
+        axios.get('/api/test').then(res => {
+            console.log('axios data',res.data);
+        })
+    },[])
     return (
         <div className={styles.container}>
             <div className={styles.info}>
