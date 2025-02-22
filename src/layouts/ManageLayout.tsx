@@ -1,22 +1,41 @@
-import React, { memo, FC } from 'react'
+import React, { memo, FC, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import styles from './ManageLayout.module.scss'
-import { Button, Divider, Space } from 'antd'
+import { Button, Divider, message, Space } from 'antd'
 import { BarsOutlined, DeleteOutlined, PlusOutlined, StarOutlined } from '@ant-design/icons'
+import { createQuestionService } from '../services/question.ts'
 
 const ManageLayout: FC = memo(function ManageLayout() {
     const nav = useNavigate()
+
     const {pathname} = useLocation()
+
+    const [loading, setLoading] = useState(false)
+    async function handleCreateClick() {
+      setLoading(true);
+      const { id } = await createQuestionService();
+      if (id) {
+        nav(`/question/edit/${id}`);
+        message.success('问卷创建成功');
+      }
+      setLoading(false);
+    }
     return (
       <div className={styles.container}>
         <div className={styles.left}>
           <Space direction="vertical">
-            <Button type="primary" size="large" icon={<PlusOutlined />}>
+            <Button
+              type="primary"
+              size="large"
+              icon={<PlusOutlined />}
+              onClick={handleCreateClick}
+              disabled={loading}
+            >
               新建问卷
             </Button>
             <Divider />
             <Button
-              type={pathname.startsWith('/manage/list') ? 'default' : 'text'}
+              type={pathname.startsWith("/manage/list") ? "default" : "text"}
               size="large"
               icon={<BarsOutlined />}
               onClick={() => nav("/manage/list")}
@@ -24,7 +43,7 @@ const ManageLayout: FC = memo(function ManageLayout() {
               我的问卷
             </Button>
             <Button
-              type={pathname.startsWith('/manage/star') ? 'default' : 'text'}
+              type={pathname.startsWith("/manage/star") ? "default" : "text"}
               size="large"
               icon={<StarOutlined />}
               onClick={() => nav("/manage/star")}
@@ -32,7 +51,7 @@ const ManageLayout: FC = memo(function ManageLayout() {
               星标问卷
             </Button>
             <Button
-              type={pathname.startsWith('/manage/trash') ? 'default' : 'text'}
+              type={pathname.startsWith("/manage/trash") ? "default" : "text"}
               size="large"
               icon={<DeleteOutlined />}
               onClick={() => nav("/manage/trash")}
