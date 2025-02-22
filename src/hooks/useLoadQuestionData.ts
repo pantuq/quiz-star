@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { getQuestionService } from "../services/question.ts";
 import { useParams } from "react-router-dom";
 import { useRequest } from "ahooks";
