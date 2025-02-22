@@ -1,10 +1,10 @@
-import Mock from 'mockjs'
+// import Mock from 'mockjs'
 
-Mock.mock('/api/test', 'get', () => {
-    return {
-        errno:0,
-        data: {
-            name: `tuqian ${Math.random()}`
-        }
-    }
-})
+// Mock.mock('/api/test', 'get', () => {
+//     return {
+//         errno:0,
+//         data: {
+//             name: `tuqian ${Math.random()}`
+//         }
+//     }
+// })

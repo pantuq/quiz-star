@@ -11,7 +11,7 @@ const Home: FC = memo(function Home() {
     const nav = useNavigate()
 
     useEffect(() => {
-        // fetch('/api/test').then(res => res.json()).then(data => console.log('fetch data',data))
+        // fetch('/api/question').then(res => res.json()).then(data => console.log('fetch data',data))
 
         // mock.js 只能劫持XMLHttpRequest,不能劫持fetch
         axios.get('/api/test').then(res => {
