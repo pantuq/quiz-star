@@ -1,25 +1,37 @@
-import React, { memo, FC, useState } from 'react'
+import React, { memo, FC } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import styles from './ManageLayout.module.scss'
-import { Button, Divider, message, Space } from 'antd'
+import { Button, Divider, Space } from 'antd'
 import { BarsOutlined, DeleteOutlined, PlusOutlined, StarOutlined } from '@ant-design/icons'
 import { createQuestionService } from '../services/question.ts'
+import { useRequest } from 'ahooks'
 
 const ManageLayout: FC = memo(function ManageLayout() {
     const nav = useNavigate()
 
     const {pathname} = useLocation()
 
-    const [loading, setLoading] = useState(false)
-    async function handleCreateClick() {
-      setLoading(true);
-      const { id } = await createQuestionService();
-      if (id) {
-        nav(`/question/edit/${id}`);
-        message.success('问卷创建成功');
+    // const [loading, setLoading] = useState(false)
+    // async function handleCreateClick() {
+    //   setLoading(true);
+    //   const { id } = await createQuestionService();
+    //   if (id) {
+    //     nav(`/question/edit/${id}`);
+    //     message.success('问卷创建成功');
+    //   }
+    //   setLoading(false);
+    // }
+
+    const { loading, run: handleCreateClick } = useRequest(
+      createQuestionService,
+      // 因为不需要参数，所以不用想useLoadQuestionData文件里面那样封装
+      {
+        manual: true,
+        onSuccess(result) {
+          nav(`/question/edit/${result.id}`);
+        },
       }
-      setLoading(false);
-    }
+    );
     return (
       <div className={styles.container}>
         <div className={styles.left}>
