@@ -1,4 +1,4 @@
-import { Button, Empty, Modal, Space, Table, Tag, Typography } from 'antd'
+import { Button, Empty, Modal, Space, Spin, Table, Tag, Typography } from 'antd'
 import React, { memo, FC, useState } from 'react'
 import styles from './Common.module.scss'
 import { useTitle } from 'ahooks'
@@ -6,45 +6,9 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch.tsx'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData.ts'
 
-// const rawQuestionList = [
-//     {
-//       _id: "q1",
-//       title: "问卷1",
-//       isPublished: false,
-//       isStar: true,
-//       answerCount: 3,
-//       createdAt: "3月11日 13:25",
-//     },
-//     {
-//       _id: "q2",
-//       title: "问卷2",
-//       isPublished: true,
-//       isStar: false,
-//       answerCount: 4,
-//       createdAt: "3月14日 19:25",
-//     },
-//     {
-//       _id: "q3",
-//       title: "问卷3",
-//       isPublished: false,
-//       isStar: true,
-//       answerCount: 8,
-//       createdAt: "3月1日 11:23",
-//     },
-//     {
-//       _id: "q4",
-//       title: "问卷4",
-//       isPublished: false,
-//       isStar: true,
-//       answerCount: 3,
-//       createdAt: "3月21日 13:25",
-//     },
-//   ]
-
-
 const Trash: FC = memo(function Trash() {
     useTitle('问卷-回收站')
-    const { data = {}, loading } = useLoadQuestionListData()
+    const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
     const { list = [], total = 0 } = data
     // 记录选中的id
     const [selectIds,setSelectIds] = useState<string[]>([])
@@ -100,7 +64,7 @@ const Trash: FC = memo(function Trash() {
         dataSource={list}
         columns={TableCol}
         pagination={false}
-        rowKey={(q => q._id)}
+        rowKey={((q: any) => q._id)}
         rowSelection={{
         type: 'checkbox',
         onChange: (selectedRowKeys) => {
@@ -113,14 +77,19 @@ const Trash: FC = memo(function Trash() {
       <>
         <div className={styles.header}>
           <div className={styles.left}>
-            <Title level={3}>星标问卷</Title>
+            <Title level={3}>回收站</Title>
           </div>
           <div className={styles.right}>
             <ListSearch/>
           </div>
         </div>
         <div className={styles.content}>
-          {list.length === 0 && <Empty description="暂无数据" />}
+        {loading && (
+            <div style={{ textAlign: "center" }}>
+              <Spin />
+            </div>
+          )}
+          {!loading && list.length === 0 && <Empty description="暂无数据" />}
           {list.length > 0 && TableElem }
         </div>
       </>

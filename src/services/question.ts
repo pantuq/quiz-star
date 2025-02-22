@@ -1,7 +1,9 @@
 import axios, { ResDataType} from './ajax.ts'
 
 type SearchOption = {
-    keyword?: string
+    keyword?: string,
+    isStar: boolean,
+    isDeleted: boolean
     // page
     // pageSize
     // sort

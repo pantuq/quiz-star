@@ -1,5 +1,5 @@
 import { useTitle } from 'ahooks'
-import { Empty, Typography } from 'antd'
+import { Empty, Spin, Typography } from 'antd'
 import React, { memo, FC } from 'react'
 import styles from './Common.module.scss'
 import QuestionCard from '../../components/QuestionCard.tsx'
@@ -12,7 +12,7 @@ const Star: FC = memo(function Star() {
 
     const {Title} = Typography
 
-    const { data = {}, loading } = useLoadQuestionListData()
+    const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
     const { list = [], total = 0 } = data
     return (
       <>
@@ -21,12 +21,18 @@ const Star: FC = memo(function Star() {
             <Title level={3}>星标问卷</Title>
           </div>
           <div className={styles.right}>
-            <ListSearch/>
+            <ListSearch />
           </div>
         </div>
         <div className={styles.content}>
-            {list.length === 0 && <Empty description="暂无星标问卷" />}
-          { list.length > 0 && list.map((ques) => {
+          {loading && (
+            <div style={{ textAlign: "center" }}>
+              <Spin />
+            </div>
+          )}
+          {!loading && list.length === 0 && <Empty description="暂无星标问卷" />}
+          {list.length > 0 &&
+            list.map((ques) => {
               const { _id } = ques;
               return <QuestionCard key={_id} {...ques} />;
             })}
