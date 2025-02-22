@@ -1,55 +1,19 @@
-import React, { memo, FC, useState } from 'react'
+import React, { memo, FC } from 'react'
 import { useTitle } from 'ahooks'
 import QuestionCard from '../../components/QuestionCard.tsx'
 import styles from './Common.module.scss'
-import { useSearchParams } from 'react-router-dom'
-import { Typography } from 'antd'
+import { Spin, Typography } from 'antd'
 import ListSearch from '../../components/ListSearch.tsx'
-
-const rawQuestionList = [
-    {
-      _id: "q1",
-      title: "问卷1",
-      isPublished: false,
-      isStar: true,
-      answerCount: 3,
-      createdAt: "3月11日 13:25",
-    },
-    {
-      _id: "q2",
-      title: "问卷2",
-      isPublished: true,
-      isStar: false,
-      answerCount: 4,
-      createdAt: "3月14日 19:25",
-    },
-    {
-      _id: "q3",
-      title: "问卷3",
-      isPublished: false,
-      isStar: true,
-      answerCount: 8,
-      createdAt: "3月1日 11:23",
-    },
-    {
-      _id: "q4",
-      title: "问卷4",
-      isPublished: false,
-      isStar: true,
-      answerCount: 3,
-      createdAt: "3月21日 13:25",
-    },
-  ]
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData.ts'
 
 const List: FC = memo(function List() {
   useTitle('问卷-我的问卷')
 
   const {Title} = Typography
 
-  const [searchParams] = useSearchParams()
-  console.log('keyword',searchParams.get('keyword'));
-  
-    const [questionList, setQuestionList] = useState(rawQuestionList);
+  const { data = {}, loading } = useLoadQuestionListData()
+  const { list = [], total = 0 } = data
+
     return (
       <>
         <div className={styles.header}>
@@ -57,12 +21,17 @@ const List: FC = memo(function List() {
             <Title level={3}>我的问卷</Title>
           </div>
           <div className={styles.right}>
-            <ListSearch/>
+            <ListSearch />
           </div>
         </div>
         <div className={styles.content}>
-          {questionList.length &&
-            questionList.map((ques) => {
+          {loading && (
+            <div style={{ textAlign: "center" }}>
+              <Spin />
+            </div>
+          )}
+          {(!loading || list.length > 0) &&
+            list.map((ques: any) => {
               const { _id } = ques;
               return <QuestionCard key={_id} {...ques} />;
             })}

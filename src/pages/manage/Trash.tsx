@@ -4,46 +4,48 @@ import styles from './Common.module.scss'
 import { useTitle } from 'ahooks'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch.tsx'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData.ts'
 
-const rawQuestionList = [
-    {
-      _id: "q1",
-      title: "问卷1",
-      isPublished: false,
-      isStar: true,
-      answerCount: 3,
-      createdAt: "3月11日 13:25",
-    },
-    {
-      _id: "q2",
-      title: "问卷2",
-      isPublished: true,
-      isStar: false,
-      answerCount: 4,
-      createdAt: "3月14日 19:25",
-    },
-    {
-      _id: "q3",
-      title: "问卷3",
-      isPublished: false,
-      isStar: true,
-      answerCount: 8,
-      createdAt: "3月1日 11:23",
-    },
-    {
-      _id: "q4",
-      title: "问卷4",
-      isPublished: false,
-      isStar: true,
-      answerCount: 3,
-      createdAt: "3月21日 13:25",
-    },
-  ]
+// const rawQuestionList = [
+//     {
+//       _id: "q1",
+//       title: "问卷1",
+//       isPublished: false,
+//       isStar: true,
+//       answerCount: 3,
+//       createdAt: "3月11日 13:25",
+//     },
+//     {
+//       _id: "q2",
+//       title: "问卷2",
+//       isPublished: true,
+//       isStar: false,
+//       answerCount: 4,
+//       createdAt: "3月14日 19:25",
+//     },
+//     {
+//       _id: "q3",
+//       title: "问卷3",
+//       isPublished: false,
+//       isStar: true,
+//       answerCount: 8,
+//       createdAt: "3月1日 11:23",
+//     },
+//     {
+//       _id: "q4",
+//       title: "问卷4",
+//       isPublished: false,
+//       isStar: true,
+//       answerCount: 3,
+//       createdAt: "3月21日 13:25",
+//     },
+//   ]
 
 
 const Trash: FC = memo(function Trash() {
     useTitle('问卷-回收站')
-    const [questionList,setQuestionList] = useState(rawQuestionList)
+    const { data = {}, loading } = useLoadQuestionListData()
+    const { list = [], total = 0 } = data
     // 记录选中的id
     const [selectIds,setSelectIds] = useState<string[]>([])
 
@@ -95,7 +97,7 @@ const Trash: FC = memo(function Trash() {
         </div>
 
         <Table
-        dataSource={questionList}
+        dataSource={list}
         columns={TableCol}
         pagination={false}
         rowKey={(q => q._id)}
@@ -118,8 +120,8 @@ const Trash: FC = memo(function Trash() {
           </div>
         </div>
         <div className={styles.content}>
-          {questionList.length === 0 && <Empty description="暂无数据" />}
-          {questionList.length > 0 && TableElem }
+          {list.length === 0 && <Empty description="暂无数据" />}
+          {list.length > 0 && TableElem }
         </div>
       </>
     );
