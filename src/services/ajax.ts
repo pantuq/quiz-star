@@ -19,13 +19,17 @@ instance.interceptors.response.use(res => {
         throw new Error(msg)
     }
 
-    return data
+    return data as any
 })
 
 export default instance
 
 export type ResType = {
     errno: number,
-    data?: any,
+    data?: ResDataType,
     msg?: string
+}
+
+export type ResDataType = {
+    [key: string]: any
 }
