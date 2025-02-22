@@ -1,21 +1,13 @@
-import React, { memo, FC, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { getQuestionService } from '../../../services/question.ts'
+import React, { memo, FC } from 'react'
+import useLoadQuestionData from '../../../hooks/useLoadQuestionData.ts'
 
 const Edit: FC = memo(function Edit() {
-    const {id = ''} = useParams() 
-
-    useEffect(() => {
-        async function fn() {
-            const data = await getQuestionService(id)
-            console.log('edit data',data);
-        }
-        fn()
-    },[])
+    const { loading, questionData } = useLoadQuestionData()
     return (
-        <>
-            Edit {id}
-        </>
+        <div>
+            <p>Edit page</p>
+            { loading ? <p>loading</p> : <p>{JSON.stringify(questionData)}</p> }
+        </div>
     )
 })
 
