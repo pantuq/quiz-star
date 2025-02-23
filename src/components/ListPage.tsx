@@ -24,10 +24,13 @@ const ListPage: FC<PropsType> = memo(function ListPage(props: PropsType) {
     const nav = useNavigate()
     const { pathname } = useLocation()      // 获取当前路由
     function handlePageChange(page: number, pageSize: number){
+        // 分页的时候，改变page 和 pageSize 但是其他的参数比如说keyword也要带着
+        searchParams.set(LIST_PAGE_PARAM_KEY, page.toString())
+        searchParams.set(LIST_PAGE_SIZE_PARAM_KEY, pageSize.toString())
         // 根据传入的page，和pageSize，改变url
         nav({
             pathname,
-            search: `${LIST_PAGE_PARAM_KEY}=${page}&${LIST_PAGE_SIZE_PARAM_KEY}=${pageSize}`
+            search: searchParams.toString()
         })
         
     }
