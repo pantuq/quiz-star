@@ -5,6 +5,7 @@ import styles from './Common.module.scss'
 import QuestionCard from '../../components/QuestionCard.tsx'
 import ListSearch from '../../components/ListSearch.tsx'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData.ts'
+import ListPage from '../../components/ListPage.tsx'
 
 const Star: FC = memo(function Star() {
 
@@ -37,7 +38,9 @@ const Star: FC = memo(function Star() {
               return <QuestionCard key={_id} {...ques} />;
             })}
         </div>
-        <div className={styles.footer}>上划加载更多</div>
+        <div className={styles.footer}>
+          <ListPage total={total} />
+        </div>
       </>
     );
 })

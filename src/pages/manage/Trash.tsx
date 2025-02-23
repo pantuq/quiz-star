@@ -5,6 +5,7 @@ import { useTitle } from 'ahooks'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch.tsx'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData.ts'
+import ListPage from '../../components/ListPage.tsx'
 
 const Trash: FC = memo(function Trash() {
     useTitle('问卷-回收站')
@@ -91,6 +92,9 @@ const Trash: FC = memo(function Trash() {
           )}
           {!loading && list.length === 0 && <Empty description="暂无数据" />}
           {list.length > 0 && TableElem }
+        </div>
+        <div className={styles.footer}>
+          <ListPage total={total} />
         </div>
       </>
     );
