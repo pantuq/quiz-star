@@ -4,8 +4,8 @@ type SearchOption = {
     keyword?: string,
     isStar: boolean,
     isDeleted: boolean
-    // page
-    // pageSize
+    page: number
+    pageSize: number
     // sort
 }
 
