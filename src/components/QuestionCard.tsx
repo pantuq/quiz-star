@@ -4,7 +4,7 @@ import { Button, Divider, message, Modal, Popconfirm, Space, Tag } from 'antd'
 import { CopyOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, LineChartOutlined, StarOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRequest } from 'ahooks'
-import { updateQuestionService } from '../services/question.ts'
+import { duplicateQuestionService, updateQuestionService } from '../services/question.ts'
 
 type PropsType = {
   _id: string,
@@ -34,9 +34,19 @@ const QuestionCard: FC<PropsType> = memo(function QuestionCard(props: PropsType)
 
   const {confirm} = Modal
 
-  function duplicate() {
-    message.success('复制成功')
-  }
+  // function duplicate() {
+  //   message.success('复制成功')
+  // }
+  const {loading: duplicateLoading, run: duplicate} = useRequest(async () => {
+    const data = await duplicateQuestionService(_id)
+    return data
+  },{
+    manual: true,
+    onSuccess(result: any){
+      message.success('复制成功')
+      nav(`/question/edit/${result.id}`)
+    }
+  })
 
   function del(){
     confirm({
@@ -109,7 +119,7 @@ const QuestionCard: FC<PropsType> = memo(function QuestionCard(props: PropsType)
                 cancelText="取消"
                 onConfirm={duplicate}
               >
-                <Button type="text" icon={<CopyOutlined />} size="small">
+                <Button type="text" icon={<CopyOutlined />} size="small" disabled={duplicateLoading}>
                   复制
                 </Button>
               </Popconfirm>
