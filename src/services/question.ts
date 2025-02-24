@@ -35,3 +35,10 @@ export async function getQuestionListService(
   return data;
 }
 // Partial, 只要类型符合，有这个一部分也行
+
+// 更新单个问卷
+export async function updateQuestionService(id: string, opt: { [key: string]: any }): Promise<ResDataType> {
+  const url = `/api/question/${id}`
+  const data = await axios.patch(url, opt)
+  return data
+}
