@@ -1,9 +1,11 @@
 import React, { memo, FC, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './Login.module.scss'
-import { Button, Checkbox, Form, Input, Space, Typography } from 'antd'
+import { Button, Checkbox, Form, Input, message, Space, Typography } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
-import { REGISTER_PATHNAME } from '../router/index.tsx'
+import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '../router/index.tsx'
+import { useRequest } from 'ahooks'
+import { loginService } from '../services/user.ts'
 
 interface LoginFormValues {
   username: string;
@@ -31,8 +33,9 @@ function getUserInfoFromStorage(){
     }
 }
 const Login: FC = memo(function Login() {
-
     const [form] = Form.useForm() //第三方 hook
+
+    const nav = useNavigate()
 
     useEffect(() => {
         const { username, password } = getUserInfoFromStorage()
@@ -43,9 +46,22 @@ const Login: FC = memo(function Login() {
     },[])
     // 没有写依赖项，只在函数组件开始渲染的时候执行一次
 
+    const { run } = useRequest(async (username, password) => {
+      const data = await loginService(username, password)
+      return data
+    },{
+      manual: true,
+      onSuccess(){
+        message.success('登录成功')
+        nav(MANAGE_INDEX_PATHNAME)
+      }
+    })
+
     const onFinish = (value: LoginFormValues) => {
-        console.log(value);
         const { username, password, remember } = value;
+
+        run(username, password)
+
         if(remember){
             rememberUser(username, password)
         }else {

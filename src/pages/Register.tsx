@@ -1,16 +1,30 @@
 import { UserAddOutlined } from '@ant-design/icons'
-import { Button, Form, Input, Space, Typography } from 'antd'
+import { Button, Form, Input, message, Space, Typography } from 'antd'
 import React, { memo, FC } from 'react'
 import styles from './Register.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { LOGIN_PATHNAME } from '../router/index.tsx'
+import { useRequest } from 'ahooks'
+import { registerService } from '../services/user.ts'
 
 const Register: FC = memo(function Register() {
     const { Title } = Typography
 
+    const nav = useNavigate()
+
+    const { run } = useRequest(async (values) => {
+      const { username, password, nickname } = values
+      await registerService(username, password, nickname)
+    },{
+      manual: true,
+      onSuccess(){
+        message.success('注册成功')
+        nav(LOGIN_PATHNAME)
+      }
+    })
+
     const onFinish = (value: object) => {
-        console.log(value);
-        
+        run(value)
     }
     return (
       <div className={styles.container}>
