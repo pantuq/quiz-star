@@ -48,14 +48,29 @@ const QuestionCard: FC<PropsType> = memo(function QuestionCard(props: PropsType)
     }
   })
 
+  // 删除
+  const [isDeletedState, setIsDeletedState] = useState(false)
+  const {loading: deleteLoading, run: deleteQuestion} = useRequest(async () => {
+    const data = await updateQuestionService(_id, {isDelete: true})
+    return data
+  },{
+    manual: true,
+    onSuccess(){
+      message.success('删除成功')
+      setIsDeletedState(true)
+    }
+  })
+
   function del(){
     confirm({
       title: '确定要删除吗？',
       content: '删除后不可恢复',
       icon: <ExclamationCircleOutlined/>,
-      onOk: () => message.success('删除成功')
+      onOk: deleteQuestion
     })
   }
+
+  if(isDeletedState) return null
     return (
       <div className={styles.container}>
         <div className={styles.title}>
@@ -128,6 +143,7 @@ const QuestionCard: FC<PropsType> = memo(function QuestionCard(props: PropsType)
                 icon={<DeleteOutlined />}
                 size="small"
                 onClick={del}
+                disabled={deleteLoading}
               >
                 删除
               </Button>
