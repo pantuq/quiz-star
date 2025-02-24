@@ -16,7 +16,8 @@ export default function useLoadQuestionListData(opt: Partial<OptionType> = {}){
 
     const [searchParams] = useSearchParams()
     
-    const { data, loading, error } = useRequest(async () => {
+    const { data, loading, error, refresh } = useRequest(async () => {
+        // refresh 重新加载当前数据，手动刷新
         const keyword = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
         const page = Number(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1
         const pageSize = Number(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE_DEFAULT
@@ -27,5 +28,5 @@ export default function useLoadQuestionListData(opt: Partial<OptionType> = {}){
         refreshDeps: [searchParams] //刷新的依赖项
     })
 
-    return { data, loading, error }
+    return { data, loading, error, refresh }
 }
