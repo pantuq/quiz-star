@@ -5,11 +5,13 @@ import styles from './MainLayout.module.scss'
 import Logo from '../components/Logo.tsx'
 import UserInfo from '../components/UserInfo.tsx'
 import useLoadUserData from '../hooks/useLoadUserData.ts'
+import useNavPage from '../hooks/useNavPage.ts'
 
 const { Header, Content, Footer} = Layout
 
 const MainLayout: FC = memo(function MainLayout() {
     const { waitingUserData } = useLoadUserData()
+    useNavPage(waitingUserData)
     return (
       <Layout>
         <Header className={styles.header}>
