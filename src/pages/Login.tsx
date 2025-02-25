@@ -6,6 +6,7 @@ import { UserAddOutlined } from '@ant-design/icons'
 import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '../router/index.tsx'
 import { useRequest } from 'ahooks'
 import { loginService } from '../services/user.ts'
+import { setToken } from '../utils/user-token.ts'
 
 interface LoginFormValues {
   username: string;
@@ -51,7 +52,10 @@ const Login: FC = memo(function Login() {
       return data
     },{
       manual: true,
-      onSuccess(){
+      onSuccess(result){
+        const { token } = result
+        // 存储token
+        setToken(token)
         message.success('登录成功')
         nav(MANAGE_INDEX_PATHNAME)
       }
