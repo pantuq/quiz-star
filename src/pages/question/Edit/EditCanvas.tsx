@@ -12,7 +12,7 @@ type PropsType = {
 }
 
 function genComponent(componentInfo: ComponentInfoType){
-    const { type, props } = componentInfo
+    const { type, props } = componentInfo   //每个组件的信息是从redux store中获取的
 
     const componentConf = getComponentConfByType(type)
     if(!componentConf) return null
