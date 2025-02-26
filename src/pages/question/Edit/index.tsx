@@ -1,12 +1,23 @@
 import React, { memo, FC } from 'react'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData.ts'
+import styles from './index.module.scss'
 
 const Edit: FC = memo(function Edit() {
     const { loading, questionData } = useLoadQuestionData()
     return (
-        <div>
-            <p>Edit page</p>
-            { loading ? <p>loading</p> : <p>{JSON.stringify(questionData)}</p> }
+        <div className={styles.container}>
+            <div style={{ backgroundColor: '#fff', height: '40px'}}>Header</div>
+            <div className={styles['content-wrapper']}>
+                <div className={styles.content}>
+                    <div className={styles.left}>Left</div>
+                    <div className={styles.main}>
+                        <div className={styles['canvas-wrapper']}>
+                            <div style={{ height: '800px'}}>画布，滚动测试</div>
+                        </div>
+                    </div>
+                    <div className={styles.right}>Right</div>
+                </div>
+            </div>
         </div>
     )
 })

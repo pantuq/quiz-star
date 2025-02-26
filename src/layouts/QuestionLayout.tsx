@@ -7,10 +7,8 @@ import useNavPage from '../hooks/useNavPage.ts'
 const QuestionLayout: FC = memo(function QuestionLayout() {
     const { waitingUserData } = useLoadUserData()
     useNavPage(waitingUserData)
-    return (
-      <>
-        QuestionLayout
-        <div>
+    return (        
+        <div style={{ height: '100vh'}}>
           {waitingUserData ? (
             <div style={{ textAlign: "center", paddingTop: "50px" }}>
               <Spin />
@@ -19,7 +17,6 @@ const QuestionLayout: FC = memo(function QuestionLayout() {
             <Outlet />
           )}
         </div>
-      </>
     );
 })
 
