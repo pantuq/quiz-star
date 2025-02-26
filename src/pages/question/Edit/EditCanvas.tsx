@@ -25,7 +25,7 @@ const EditCanvas: FC<PropsType> = memo(function EditCanvas(props: PropsType) {
     const { componentList,selectedId} = useGetCompoentsInfo()
     const dispatch = useDispatch()  
 
-    function handlerClick(event:MouseEvent,id: string){
+    function handlerClick(event:React.MouseEvent,id: string){
         event.stopPropagation() //阻止冒泡，点击main的边框会清空selectedId
         dispatch(changeSelectedId(id))
     }
