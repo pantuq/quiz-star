@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 import EditCanvas from './EditCanvas.tsx'
 
 const Edit: FC = memo(function Edit() {
-    const { loading, questionData } = useLoadQuestionData()
+    const { loading } = useLoadQuestionData()
     return (
         <div className={styles.container}>
             <div style={{ backgroundColor: '#fff', height: '40px'}}>Header</div>
@@ -13,7 +13,7 @@ const Edit: FC = memo(function Edit() {
                     <div className={styles.left}>Left</div>
                     <div className={styles.main}>
                         <div className={styles['canvas-wrapper']}>
-                            <EditCanvas/>
+                            <EditCanvas loading={loading}/>
                         </div>
                     </div>
                     <div className={styles.right}>Right</div>
