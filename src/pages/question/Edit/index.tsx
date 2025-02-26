@@ -1,6 +1,7 @@
 import React, { memo, FC } from 'react'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData.ts'
 import styles from './index.module.scss'
+import EditCanvas from './EditCanvas.tsx'
 
 const Edit: FC = memo(function Edit() {
     const { loading, questionData } = useLoadQuestionData()
@@ -12,7 +13,7 @@ const Edit: FC = memo(function Edit() {
                     <div className={styles.left}>Left</div>
                     <div className={styles.main}>
                         <div className={styles['canvas-wrapper']}>
-                            <div style={{ height: '800px'}}>画布，滚动测试</div>
+                            <EditCanvas/>
                         </div>
                     </div>
                     <div className={styles.right}>Right</div>

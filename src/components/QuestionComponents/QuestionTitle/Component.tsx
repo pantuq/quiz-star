@@ -26,6 +26,7 @@ const QuestionTitle: FC<QuestionTitlePropsType> = memo(function QuestionTitle(
         textAlign: isCenter ? "center" : "start",
         marginBottom: "0",
         fontSize: genFontSize(level),
+        marginBlockStart: "0",
     }}
     >
     {text}
