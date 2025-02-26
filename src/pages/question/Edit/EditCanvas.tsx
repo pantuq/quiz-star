@@ -3,11 +3,15 @@ import styles from './EditCanvas.module.scss'
 import QuestionTitle from '../../../components/QuestionComponents/QuestionTitle/Component.tsx'
 import QuestionInput from '../../../components/QuestionComponents/QuestionInput/Component.tsx'
 import { Spin } from 'antd'
+import useGetCompoentsInfo from '../../../hooks/useGetComponentsInfo.ts'
 
 type PropsType = {
     loading: boolean
 }
 const EditCanvas: FC<PropsType> = memo(function EditCanvas(props: PropsType) {
+    const { componentList } = useGetCompoentsInfo()
+    console.log('componentList',componentList);
+    
     if(props.loading){
         return <div style={{ textAlign: 'center', marginTop: '24px'}}>
             <Spin/>
