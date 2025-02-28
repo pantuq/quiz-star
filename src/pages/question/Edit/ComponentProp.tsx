@@ -1,6 +1,8 @@
 import React, { memo, FC } from 'react'
 import useGetCompoentsInfo from '../../../hooks/useGetComponentsInfo.ts'
-import { getComponentConfByType } from '../../../components/QuestionComponents/index.ts'
+import { ComponentPropsType, getComponentConfByType } from '../../../components/QuestionComponents/index.ts'
+import { useDispatch } from 'react-redux'
+import { changeComponentProps } from '../../../store/componentsReducer/index.ts'
 
 const NoProp: FC = memo(function NoProp(){
     return (
@@ -9,6 +11,8 @@ const NoProp: FC = memo(function NoProp(){
 })
 
 const ComponentProp: FC = memo(function ComponentProp() {
+    const dispatch = useDispatch()
+
     const { selelctedComponent } = useGetCompoentsInfo()
     if(!selelctedComponent){
         return <NoProp/>
@@ -18,9 +22,17 @@ const ComponentProp: FC = memo(function ComponentProp() {
     const componentConf = getComponentConfByType(type)
     if(!componentConf) return <NoProp/>
 
+    function changeProps(newProps: ComponentPropsType){
+        if(!selelctedComponent) return 
+        const { fe_id } = selelctedComponent
+        
+        dispatch(changeComponentProps({fe_id, newProps}))
+        
+    }
+
     const { PropComponent } = componentConf
     return (
-        <PropComponent {...props}/>
+        <PropComponent {...props} onChange={changeProps}/>
     )
 })
 
