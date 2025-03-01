@@ -37,7 +37,7 @@ const EditCanvas: FC<PropsType> = memo(function EditCanvas(props: PropsType) {
     }
     return (
         <div className={styles.canvas}>
-            {componentList.map(c => {
+            {componentList.filter(c => !c.isHidden).map(c => {
                 const { fe_id } = c 
 
                 // 拼接classname
