@@ -6,6 +6,7 @@ import useGetCompoentsInfo from '../../../hooks/useGetComponentsInfo.ts'
 import { changeSelectedId, ComponentInfoType } from '../../../store/componentsReducer/index.ts'
 import { getComponentConfByType } from '../../../components/QuestionComponents/index.ts'
 import { useDispatch } from 'react-redux'
+import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress.ts'
 
 type PropsType = {
     loading: boolean
@@ -22,6 +23,8 @@ function genComponent(componentInfo: ComponentInfoType){
 }
 
 const EditCanvas: FC<PropsType> = memo(function EditCanvas(props: PropsType) {
+    // 绑定快捷键
+    useBindCanvasKeyPress()
     const { componentList,selectedId} = useGetCompoentsInfo()
     const dispatch = useDispatch()  
 
@@ -35,6 +38,7 @@ const EditCanvas: FC<PropsType> = memo(function EditCanvas(props: PropsType) {
             <Spin/>
         </div>
     }
+
     return (
         <div className={styles.canvas}>
             {componentList.filter(c => !c.isHidden).map(c => {
