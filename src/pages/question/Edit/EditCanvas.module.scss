@@ -15,6 +15,11 @@
     }
 }
 
+.locked {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
 .selected {
     border-color: #1890ff !important;
 }

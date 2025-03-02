@@ -18,7 +18,7 @@ const ComponentProp: FC = memo(function ComponentProp() {
         return <NoProp/>
     }
 
-    const { type, props } = selelctedComponent
+    const { type, props, isLocked, isHidden } = selelctedComponent
     const componentConf = getComponentConfByType(type)
     if(!componentConf) return <NoProp/>
 
@@ -32,7 +32,7 @@ const ComponentProp: FC = memo(function ComponentProp() {
 
     const { PropComponent } = componentConf
     return (
-        <PropComponent {...props} onChange={changeProps}/>
+        <PropComponent {...props} onChange={changeProps} disabled={isLocked || isHidden} />
     )
 })
 
