@@ -13,6 +13,7 @@
     "conventional-changelog-conventionalcommits": "^8.0.0",
     "cra-template-typescript": "1.2.0",
     "immer": "^10.1.1",
+    "lodash.clonedeep": "^4.5.0",
     "mockjs": "^1.1.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

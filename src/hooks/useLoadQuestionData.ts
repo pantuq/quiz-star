@@ -32,7 +32,7 @@ export default function useLoadQuestionData(){
           selectedId = componentList[0].fe_id   // 默认选中第一个组件
         }
         // 把componentList存储到redux store中
-        dispatch(resetComponents({componentList, selectedId}))
+        dispatch(resetComponents({componentList, selectedId, copiedComponent: null}))
     },[data])
 
     // 判断id变化，执行ajax加载问卷数据
