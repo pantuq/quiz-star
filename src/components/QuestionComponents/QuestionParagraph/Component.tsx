@@ -6,9 +6,11 @@ const { Paragraph } = Typography
 
 const Component: FC<QuestionParagraphPropsType> = memo(function Component(props: QuestionParagraphPropsType) {
     const { text = '', isCenter = false } = {...QuestionParagraphDefaultProps, ...props}
+
+    const t = text.replaceAll('\n','<br>')
     return (
         <Paragraph style={{ textAlign: isCenter ? 'center': 'start', marginBottom: 0}}>
-            {text}
+            <span dangerouslySetInnerHTML={{__html: t}}></span>
         </Paragraph>
     )
 })
