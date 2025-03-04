@@ -27,9 +27,7 @@ const PropComponent: FC<QuestionRadioPropsType> = memo(function PropComponent(pr
                 opt.value = nanoid(5)
               }
             })
-            onChange(newValues)
-            console.log(newValues);
-            
+            onChange(newValues)            
         }
     }
     return (
