@@ -8,7 +8,7 @@ import useGetPageInfo from '../../../hooks/useGetPageInfo.ts'
 import { useDispatch } from 'react-redux'
 import { changePageTitle } from '../../../store/pageInfoReducer.tsx'
 import useGetCompoentsInfo from '../../../hooks/useGetComponentsInfo.ts'
-import { useKeyPress, useRequest } from 'ahooks'
+import { useDebounceEffect, useKeyPress, useRequest } from 'ahooks'
 import { updateQuestionService } from '../../../services/question.ts'
 const { Title } = Typography
 
@@ -63,6 +63,17 @@ const SaveButton: FC = memo(function SaveButton(){
     event.preventDefault()
     if(!loading) save()
   })
+
+  // 自动保存
+  useDebounceEffect(
+    () => {
+      save();
+    },
+    [componentList, pageInfo],
+    {
+      wait: 1000,
+    }
+  );
 
   return (
     <Button
