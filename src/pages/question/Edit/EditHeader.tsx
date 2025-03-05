@@ -1,6 +1,6 @@
 import React, { memo, FC, useState, ChangeEvent } from 'react'
 import styles from './EditHeader.module.scss'
-import { Button, Input, Space, Typography } from 'antd'
+import { Button, Input, message, Space, Typography } from 'antd'
 import { EditOutlined, LeftOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useNavigate, useParams } from 'react-router-dom'
 import EditToolbar from './EditToolbar.tsx'
@@ -86,6 +86,39 @@ const SaveButton: FC = memo(function SaveButton(){
   );
 })
 
+// 发布按钮
+const PublishButton: FC = memo(function PublishButton(){
+  const pageInfo = useGetPageInfo()
+  const { componentList } = useGetCompoentsInfo()
+  const { id } = useParams()
+  const nav = useNavigate()
+
+  const { loading, run: pub } = useRequest(
+    async () => {
+      if (id) {
+        await updateQuestionService(id, {
+          ...pageInfo,
+          componentList,
+          isPublished: true,
+        });
+      }
+    },
+    {
+      manual: true,
+      onSuccess(){
+        message.success('发布成功')
+        nav(`/question/stat/${id}`)   //发布成功，跳转到统计页
+      }
+    }
+  );
+
+  return (
+    <Button type='primary' onClick={pub} disabled={loading}>发布</Button>
+  )
+  // 假删除： isDeleted = true (更新)
+  // 发布：isPublished = true (更新)
+})
+
 // 编辑器头部组件
 const EditHeader: FC = memo(function EditHeader() {
   const nav = useNavigate()
@@ -110,7 +143,7 @@ const EditHeader: FC = memo(function EditHeader() {
           <div className={styles.right}>
             <Space>
                 <SaveButton/>
-                <Button type='primary'>发布</Button>
+                <PublishButton/>
             </Space>
           </div>
         </div>
