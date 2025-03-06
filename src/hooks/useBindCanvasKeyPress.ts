@@ -4,9 +4,14 @@ import { copySelectedComponent, pasteCopiedComponent, removeSelectedComponent, s
 
 // 判断点击的元素是否有效
 function isActiveElementValid(){
-    const activeElem = document.activeElement
+    const activeElem = document.activeElement    
 
+    // 没有增加dnd-kit之前
+    // if(activeElem === document.body) return true
+
+    // 增加了dnd-kit之后
     if(activeElem === document.body) return true
+    if(activeElem?.matches("div[role='button']")) return true
 
     return false
 }

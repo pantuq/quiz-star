@@ -25,7 +25,8 @@ const SortableContainer: FC<PropsType> = (props: PropsType) => {
   const sensors = useSensors(
     useSensor(MouseSensor, {
       activationConstraint: {
-        distance: 8, // 8px
+        // 活动限制
+        distance: 8, // 鼠标移动8px以内不认为是拖拽
       },
     })
   )
