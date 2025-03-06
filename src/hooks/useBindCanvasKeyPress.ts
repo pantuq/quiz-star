@@ -1,6 +1,7 @@
 import { useKeyPress } from "ahooks";
 import { useDispatch } from "react-redux";
 import { copySelectedComponent, pasteCopiedComponent, removeSelectedComponent, selectNextComponent, selectPrevComponent } from "../store/componentsReducer/index.ts";
+import { ActionCreators } from "redux-undo";
 
 // 判断点击的元素是否有效
 function isActiveElementValid(){
@@ -47,5 +48,21 @@ export default function useBindCanvasKeyPress() {
     useKeyPress('downarrow',() => {
         if(!isActiveElementValid()) return
         dispatch(selectNextComponent())
+    })
+
+    // 撤销
+    useKeyPress(['ctrl.z','meta.z'], () => {
+        if(!isActiveElementValid()) return
+        dispatch(ActionCreators.undo())
+    },{
+        exactMatch: true    // 严格匹配
+    })
+
+    // 重做
+    useKeyPress(['ctrl.shift.z','meta.shift.z'], () => {
+        if(!isActiveElementValid()) return
+        dispatch(ActionCreators.redo())
+    },{
+        exactMatch: true    // 严格匹配
     })
 }

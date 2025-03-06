@@ -1,9 +1,10 @@
-import { BlockOutlined, CopyOutlined, DeleteOutlined, DownOutlined, EyeInvisibleOutlined, LockOutlined, UpOutlined } from '@ant-design/icons'
+import { BlockOutlined, CopyOutlined, DeleteOutlined, DownOutlined, EyeInvisibleOutlined, LockOutlined, RedoOutlined, UndoOutlined, UpOutlined } from '@ant-design/icons'
 import { Button, Space, Tooltip } from 'antd'
 import React, { memo, FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { changeComponentHidden, copySelectedComponent, moveComponent, pasteCopiedComponent, removeSelectedComponent, toggleComponentLocked } from '../../../store/componentsReducer/index.ts'
 import useGetCompoentsInfo from '../../../hooks/useGetComponentsInfo.ts'
+import { ActionCreators } from 'redux-undo'
 
 const EditToolbar: FC = memo(function EditToolbar() {
     const dispatch = useDispatch()
@@ -42,6 +43,14 @@ const EditToolbar: FC = memo(function EditToolbar() {
     function moveDown(){
         if(isFirst) return
         dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex + 1 }))
+    }
+
+    function undo(){
+      dispatch(ActionCreators.undo()) 
+    }
+
+    function redo(){
+      dispatch(ActionCreators.redo())
     }
     return (
       <Space>
@@ -102,6 +111,22 @@ const EditToolbar: FC = memo(function EditToolbar() {
             icon={<DownOutlined />}
             onClick={moveDown}
             disabled={isLast}
+          ></Button>
+        </Tooltip>
+
+        <Tooltip title="撤销">
+          <Button
+            shape="circle"
+            icon={<UndoOutlined />}
+            onClick={undo}
+          ></Button>
+        </Tooltip>
+
+        <Tooltip title="重做">
+          <Button
+            shape="circle"
+            icon={<RedoOutlined />}
+            onClick={redo}
           ></Button>
         </Tooltip>
       </Space>
