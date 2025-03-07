@@ -25,7 +25,7 @@ export default function useLoadQuestionData(){
     // 根据获取的data设置redux store
     useEffect(() => {
         if(!data) return 
-        const { title = '', desc = '', js = '', css = '', componentList = [] } = data
+        const { title = '', desc = '', js = '', css = '', isPublished = false, componentList = [] } = data
 
         // 获取默认的selectedID
         let selectedId = ''
@@ -35,7 +35,7 @@ export default function useLoadQuestionData(){
         // 把componentList存储到redux store中
         dispatch(resetComponents({componentList, selectedId, copiedComponent: null}))
         // 把pageInfo存储到redux store中
-        dispatch(resetPageInfo({title, desc, js, css}))
+        dispatch(resetPageInfo({title, desc, js, css, isPublished}))
     },[data])
 
     // 判断id变化，执行ajax加载问卷数据
