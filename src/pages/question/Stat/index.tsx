@@ -1,4 +1,4 @@
-import React, { memo, FC } from 'react'
+import React, { memo, FC, useState } from 'react'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData.ts'
 import { Button, Result, Spin } from 'antd'
 import useGetPageInfo from '../../../hooks/useGetPageInfo.ts'
@@ -6,11 +6,16 @@ import { useNavigate } from 'react-router-dom'
 import { useTitle } from 'ahooks'
 import styles from './index.module.scss'
 import StatHeader from './StatHeader.tsx'
+import ComponentList from './ComponentList.tsx'
 
 const Stat: FC = memo(function Stat() {
     const nav = useNavigate()
     const { loading } = useLoadQuestionData()
     const { isPublished, title } = useGetPageInfo()
+
+    // 状态提升 
+    const [selectedComponentId, setSelectedComponentId] = useState('')
+    const [selectedComponentType, setSelectedComponentType] = useState('')
 
     // 修改标题
     useTitle(`问卷统计 - ${title}`)
@@ -34,12 +39,18 @@ const Stat: FC = memo(function Stat() {
         }
 
         return (
-            <>
-            <div className={styles.left}>左侧</div>
+          <>
+            <div className={styles.left}>
+              <ComponentList
+                selectedComponentId={selectedComponentId}
+                setSelectedComponentId={setSelectedComponentId}
+                setSelectedComponentType={setSelectedComponentType}
+              />
+            </div>
             <div className={styles.main}>中间</div>
             <div className={styles.right}>右侧</div>
-            </>
-        )
+          </>
+        );
     }
     return (
       <div className={styles.container}>
