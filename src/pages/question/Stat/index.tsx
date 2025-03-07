@@ -3,11 +3,15 @@ import useLoadQuestionData from '../../../hooks/useLoadQuestionData.ts'
 import { Button, Result, Spin } from 'antd'
 import useGetPageInfo from '../../../hooks/useGetPageInfo.ts'
 import { useNavigate } from 'react-router-dom'
+import { useTitle } from 'ahooks'
 
 const Stat: FC = memo(function Stat() {
     const nav = useNavigate()
     const { loading } = useLoadQuestionData()
-    const { isPublished } = useGetPageInfo()
+    const { isPublished, title } = useGetPageInfo()
+
+    // 修改标题
+    useTitle(`问卷统计 - ${title}`)
 
     if(loading){
         return (

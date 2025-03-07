@@ -7,14 +7,20 @@ import { changeSelectedId } from '../../../store/componentsReducer/index.ts'
 import LeftPanel from './LeftPanel.tsx'
 import RightPanel from './RightPanel.tsx'
 import EditHeader from './EditHeader.tsx'
+import useGetPageInfo from '../../../hooks/useGetPageInfo.ts'
+import { useTitle } from 'ahooks'
 
 const Edit: FC = memo(function Edit() {
     const { loading } = useLoadQuestionData()
     const dispatch = useDispatch()
+    const { title } = useGetPageInfo()
     
     function clearSelectedId(){
         dispatch(changeSelectedId(''))
     }
+    
+    // 修改标题
+    useTitle(`问卷编辑 - ${title}`)
     return (
         <div className={styles.container}>
             <EditHeader/>
