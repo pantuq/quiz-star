@@ -7,6 +7,7 @@ import { useTitle } from 'ahooks'
 import styles from './index.module.scss'
 import StatHeader from './StatHeader.tsx'
 import ComponentList from './ComponentList.tsx'
+import PageStat from './PageStat.tsx'
 
 const Stat: FC = memo(function Stat() {
     const nav = useNavigate()
@@ -47,7 +48,13 @@ const Stat: FC = memo(function Stat() {
                 setSelectedComponentType={setSelectedComponentType}
               />
             </div>
-            <div className={styles.main}>中间</div>
+            <div className={styles.main}>
+              <PageStat
+                selectedComponentId={selectedComponentId}
+                setSelectedComponentId={setSelectedComponentId}
+                setSelectedComponentType={setSelectedComponentType}
+              />
+            </div>
             <div className={styles.right}>右侧</div>
           </>
         );
