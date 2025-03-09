@@ -9,3 +9,12 @@ export async function getQuestionStatListService(
   const data = await axios.get(url, { params: opt });
   return data;
 }
+// 获取组件统计数据汇总
+export async function getComponentStatService(
+  questionId: string,
+  componentId: string
+): Promise<ResDataType> {
+  const url = `/api/stat/${questionId}/${componentId}`;
+  const data = await axios.get(url);
+  return data;
+}
