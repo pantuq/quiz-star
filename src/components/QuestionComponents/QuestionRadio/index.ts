@@ -4,6 +4,7 @@
 
 import Component from "./Component.tsx";
 import PropComponent from "./PropComponent.tsx";
+import StatComponent from "./StatComponent.tsx";
 import { QuestionRadioDefaultProps } from "./interface.ts";
 
 export * from './interface.ts'
@@ -13,5 +14,6 @@ export default {
     type: 'questionRadio',
     Component,
     PropComponent,
-    defaultProps: QuestionRadioDefaultProps
+    defaultProps: QuestionRadioDefaultProps,
+    StatComponent
 }
