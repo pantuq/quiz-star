@@ -8,6 +8,7 @@ import styles from './index.module.scss'
 import StatHeader from './StatHeader.tsx'
 import ComponentList from './ComponentList.tsx'
 import PageStat from './PageStat.tsx'
+import ChartStat from './ChartStat.tsx'
 
 const Stat: FC = memo(function Stat() {
     const nav = useNavigate()
@@ -55,7 +56,12 @@ const Stat: FC = memo(function Stat() {
                 setSelectedComponentType={setSelectedComponentType}
               />
             </div>
-            <div className={styles.right}>右侧</div>
+            <div className={styles.right}>
+              <ChartStat
+                selectedComponentId={selectedComponentId}
+                selectedComponentType={selectedComponentType}
+              />
+            </div>
           </>
         );
     }

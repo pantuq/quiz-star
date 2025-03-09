@@ -59,7 +59,7 @@ const StatHeader: FC = memo(function StatHeader() {
               >
                 返回
               </Button>
-              <Title>{title}</Title>
+              <Title level={3}>{title}</Title>
             </Space>
           </div>
           <div className={styles.main}>{getLinkAndQRCode()}</div>
