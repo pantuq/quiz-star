@@ -3,6 +3,7 @@
  */
 import Component from "./Component.tsx";
 import PropComponent from "./PropComponent.tsx";
+import StatComponent from "./StatComponent.tsx";
 import { QuestionCheckboxDefaultProps } from "./interface.ts";
 
 export * from './interface.ts'
@@ -12,5 +13,6 @@ export default {
     type: 'questionCheckbox',
     Component,
     PropComponent,
-    defaultProps: QuestionCheckboxDefaultProps
+    defaultProps: QuestionCheckboxDefaultProps,
+    StatComponent
 }

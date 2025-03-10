@@ -3,6 +3,7 @@ import React, { memo, FC, useEffect, useState } from 'react'
 import { getComponentStatService } from '../../../services/stat.ts'
 import { useRequest } from 'ahooks'
 import { useParams } from 'react-router-dom'
+import { getComponentConfByType } from '../../../components/QuestionComponents/index.ts'
 
 const { Title } = Typography
 
@@ -33,9 +34,11 @@ const ChartStat: FC<PropsType> = memo(function ChartStat(props: PropsType) {
 
     function genStatElem(){
         if(!selectedComponentId) return <div>未选中组件</div>
-        return (<div>
-            {JSON.stringify(stat)}
-        </div>)
+
+        const { StatComponent } = getComponentConfByType(selectedComponentType) || {}
+        if(!StatComponent) return <div>该组件没有统计数据</div>
+
+        return <StatComponent stat={stat} />
     }
     return (
         <>
