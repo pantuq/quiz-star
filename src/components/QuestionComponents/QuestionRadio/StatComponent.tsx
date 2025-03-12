@@ -14,7 +14,9 @@ const StatComponent: FC<QuestionRadioStatPropsType> = memo(function StatComponen
         props.stat.forEach(i => {
             s += i.count
         })
+        return s
     },[props.stat])
+    
     return (
       <div style={{ width: "300px", height: "300px" }}>
         <ResponsiveContainer>
