@@ -1,4 +1,4 @@
-import React, { memo, FC, useRef } from 'react'
+import React, { memo, FC, useRef, useMemo } from 'react'
 import styles from './StatHeader.module.scss'
 import { Button, Input, InputRef, message, Popover, Space, Tooltip, Typography } from 'antd'
 import { QRCodeSVG } from 'qrcode.react'
@@ -24,29 +24,30 @@ const StatHeader: FC = memo(function StatHeader() {
         }
     }
 
-    function getLinkAndQRCode(){
-        if(!isPublished) return null
-        
-        // 定义url
-        const url = `http://localhost:3000/question/${id}`
-        // 定义二维码
-        const QRCode = (
-            <div style={{ textAlign: 'center' }}>
-                <QRCodeSVG value={url} size={150} />
-            </div>
-        )
-        return (
-            <Space>
-                <Input value={url} style={{ width: '300px'}} ref={urlInputRef}/>
-                <Tooltip title="复制链接">
-                    <Button icon={<CopyOutlined/>} onClick={copy}></Button>
-                </Tooltip>
-                <Popover content={QRCode}>
-                    <Button icon={<QrcodeOutlined/>}></Button>
-                </Popover>
-            </Space>
-        )
-    }
+    // 使用useMemo 1.依赖项是否经常发生变化； 2. 缓存的元素是否创建成本较高
+    const LinkAndQRCodeElem = useMemo(() => {
+      if(!isPublished) return null
+
+      // 定义url
+      const url = `http://localhost:3000/question/${id}`
+      // 定义二维码
+      const QRCode = (
+          <div style={{ textAlign: 'center' }}>
+              <QRCodeSVG value={url} size={150} />
+          </div>
+      )
+      return (
+          <Space>
+              <Input value={url} style={{ width: '300px'}} ref={urlInputRef}/>
+              <Tooltip title="复制链接">
+                  <Button icon={<CopyOutlined/>} onClick={copy}></Button>
+              </Tooltip>
+              <Popover content={QRCode}>
+                  <Button icon={<QrcodeOutlined/>}></Button>
+              </Popover>
+          </Space>
+      )
+    },[id, isPublished])
     return (
       <div className={styles["header-wrapper"]}>
         <div className={styles.header}>
@@ -62,7 +63,7 @@ const StatHeader: FC = memo(function StatHeader() {
               <Title level={3}>{title}</Title>
             </Space>
           </div>
-          <div className={styles.main}>{getLinkAndQRCode()}</div>
+          <div className={styles.main}>{LinkAndQRCodeElem}</div>
           <div className={styles.right}>
             <Button type='primary' onClick={() => nav(`/question/edit/${id}`)}>编辑问卷</Button>
           </div>
