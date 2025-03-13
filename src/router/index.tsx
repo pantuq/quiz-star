@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout.tsx";
@@ -11,8 +11,12 @@ import NotFound from "../pages/NotFound.tsx";
 import List from "../pages/manage/List.tsx";
 import Trash from "../pages/manage/Trash.tsx";
 import Star from "../pages/manage/Star.tsx";
-import Edit from "../pages/question/Edit/index.tsx";
-import Stat from "../pages/question/Stat/index.tsx";
+// import Edit from "../pages/question/Edit/index.tsx";
+// import Stat from "../pages/question/Stat/index.tsx";
+
+// 路由懒加载，拆分bundle，优化首页体积
+const Edit = lazy(() => import(/*webpackChunkName: "question-edit"*/'../pages/question/Edit/index.tsx'))
+const Stat = lazy(() => import(/*webpackChunkName: "question-stat"*/'../pages/question/Stat/index.tsx'))
 
 const router = createBrowserRouter([
     {
