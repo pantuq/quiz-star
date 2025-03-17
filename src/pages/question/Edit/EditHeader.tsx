@@ -10,6 +10,7 @@ import { changePageTitle } from '../../../store/pageInfoReducer.tsx'
 import useGetCompoentsInfo from '../../../hooks/useGetComponentsInfo.ts'
 import { useDebounceEffect, useKeyPress, useRequest } from 'ahooks'
 import { updateQuestionService } from '../../../services/question.ts'
+import { MANAGE_INDEX_PATHNAME } from '../../../router/index.tsx'
 const { Title } = Typography
 
 // 显示和修改标题
@@ -49,13 +50,20 @@ const SaveButton: FC = memo(function SaveButton(){
   const pageInfo = useGetPageInfo()
   const { componentList } = useGetCompoentsInfo()
   const { id } = useParams()
+  const nav = useNavigate()
 
   const { loading, run: save } = useRequest(async () => {
     if(id){
       await updateQuestionService(id, { ...pageInfo, componentList })
+      console.log(pageInfo,componentList);
+      
     }
   },{
-    manual: true
+    manual: true,
+    onSuccess(){
+      // message.success('保存成功')
+      // nav(MANAGE_INDEX_PATHNAME)
+    }
   })
 
   // 快捷键

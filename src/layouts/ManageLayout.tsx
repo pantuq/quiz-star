@@ -1,7 +1,7 @@
 import React, { memo, FC } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import styles from './ManageLayout.module.scss'
-import { Button, Divider, Space } from 'antd'
+import { Button, Divider, message, Space } from 'antd'
 import { BarsOutlined, DeleteOutlined, PlusOutlined, StarOutlined } from '@ant-design/icons'
 import { createQuestionService } from '../services/question.ts'
 import { useRequest } from 'ahooks'
@@ -28,7 +28,8 @@ const ManageLayout: FC = memo(function ManageLayout() {
       {
         manual: true,
         onSuccess(result) {
-          nav(`/question/edit/${result.id}`);
+          nav(`/question/edit/${result.id || result._id}`);
+          message.success('问卷创建成功');
         },
       }
     );

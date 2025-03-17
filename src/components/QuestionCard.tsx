@@ -44,14 +44,14 @@ const QuestionCard: FC<PropsType> = memo(function QuestionCard(props: PropsType)
     manual: true,
     onSuccess(result: any){
       message.success('复制成功')
-      nav(`/question/edit/${result.id}`)
+      nav(`/question/edit/${result.id || result._id}`)
     }
   })
 
   // 删除
   const [isDeletedState, setIsDeletedState] = useState(false)
   const {loading: deleteLoading, run: deleteQuestion} = useRequest(async () => {
-    const data = await updateQuestionService(_id, {isDelete: true})
+    const data = await updateQuestionService(_id, {isDeleted: true})
     return data
   },{
     manual: true,

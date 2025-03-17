@@ -4,6 +4,8 @@ import axios, { ResDataType} from './ajax.ts'
 export async function getUserInfoService(): Promise<ResDataType>{
     const url = '/api/user/info'
     const data = await axios.get(url)
+    console.log(data);
+    
     return data
 }
 

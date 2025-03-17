@@ -3,7 +3,9 @@ import axios from "axios";
 import { getToken } from "../utils/user-token.ts";
 
 const instance = axios.create({
-    timeout: 10 * 1000
+    baseURL: 'http://127.0.0.1:3005/',
+    timeout: 10 * 1000,
+    headers: {}
 })
 
 // request 拦截 每次请求都带上token
